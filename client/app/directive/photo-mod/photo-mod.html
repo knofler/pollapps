@@ -1,0 +1,17 @@
+<div class="modal-header">
+      <h4 class="headerMargin">Application Name: <span class="text-info">{{AksWarnData[AksWarnData.length-1].aksappName}}</span></h3>
+      <h5 class="headerMargin">version : <span class="text-warning">{{AksWarnData[AksWarnData.length-1].appVersion}}</span></h5>  	
+</div>
+<div class="modal-body headerMargin">
+	<span class="licdelwrn">Are you sure, you want to remove  
+		<span class="text-error imgPath">{{image_to_del}}</span>
+	</span>
+	<div> from application 
+		<strong>{{AksWarnData[AksWarnData.length-1].aksappName}}</strong> AKS ?
+	</div>
+	<h5 class="licWrnh5">Deleting image will remove access to following image from AKS.</h5>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

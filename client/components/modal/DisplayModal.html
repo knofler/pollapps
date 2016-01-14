@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <h3 class="text-muted headerMargin">{{showmodalinfo.model | capitalize}} : <span class="text-info"><strong>{{displayData[showmodalinfo.fields[0].title]}}</strong></span></h3>
+    <h5 class="text-warning headerMargin">{{showmodalinfo.fields[0].subtitle_header}} : {{displayData[showmodalinfo.fields[0].subtitle] | date:'yyyy-MM-dd'}}</h5>
+</div>
+<div class="modal-body">
+  <div ng-repeat="(key,value) in showmodalinfo.fields">
+    <ul class="shiftLeft">
+       <li class="modalLi">
+       <span class="modalSpan">
+        <strong>{{value.header}} :</strong>
+           <span class="genModalDataDisplay">{{displayData[value.name]}}</span>
+       </span>
+      </li>
+    </ul>
+    <hr class="modalHR">
+  </div>            
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" ng-click="ok()">OK</button>
+</div>

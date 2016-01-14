@@ -1,0 +1,126 @@
+<div class="container mainContainer">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">{{data.model | capitalize}}:
+        <span>
+          <button ng-hide="totalList" ng-click="showAll()" class="btn btn-info" popover="Show All records!" popover-trigger="mouseenter">Show All</button>
+          <button ng-show="searchBox" ng-click="searchData()" class="btn btn-info" popover="Bring Search panel Back!" popover-trigger="mouseenter">Search Box</button>
+         </span> 
+        <span>
+          <button ng-show="controlPage" ng-click="addModalData(data)" class="btn btn-warning" popover-placement="bottom" popover="Create New record!" popover-trigger="mouseenter">New record</button>
+         </span>  
+        <h4 class="dataDisplay">Total ( {{dataRepo.length}} records )</h4>
+        <!-- Page item count option -->
+        <h4 class="countTable">
+          <span class="input-group-addon">Items displayed</span> 
+            <select class="form-control" name="count" type="text" ng-model="pageSize" id="selectItemPerPage">
+              <option default selected>8</option>
+              <option>10</option>
+              <option>25</option>
+              <option>50</option>
+              <option>100</option>
+              <option>500</option>
+              <option>All</option>
+            </select>
+           </span>
+         </h4> 
+        <h5 class="">  
+         <span id="searchflip" ng-show="searchflip">
+            <span id="currenUser">{{ getCurrentUser().name }}</span>,
+            your search keyword <span class="searchKeyword"> "{{search}}" 
+           </span> found 
+         <span id="searchCount"> {{filtered.length}} </span> results. 
+         </h5>
+
+       </h1>  
+      <!-- Filter results -->
+      <div class="items col-xs-12 col-sm-6 col-md-6 col-lg-12 gapBottom clearfix"><input ng-hide="totalList"ng-model="search" 
+          ng-change="filter()" type="search" class="form-control" id="input-search"  placeholder="Search records..." autofocus>
+          <!-- Heading display  -->
+          <h4 ng-show="totalList" type="text" class="page-sub-header countCustom">Purchase Requisition for Faculty of Business and Economics</h4>   
+         </div>
+
+      <!-- dynamic append toolbar -->
+      <div id="addtoolBar"></div>
+      <!-- static toolbar -->
+      <div class='items col-xs-12 col-sm-6 col-md-6 col-lg-12 gapBottom clearfix' id='toolbar'>
+        <!-- *************************************************************** -->
+        <button class='btn' type= "button" ng-click="popCSV(data.modal,'small')">
+        <span class='glyphicon glyphicon-download-alt' popover-placement='top' popover='CSV' popover-trigger='mouseenter'>  
+        </span>
+        </button>
+        <!-- *************************************************************** -->
+        <span>
+        <button ng-click='goHome()' class='btn'>
+        <span class='glyphicon glyphicon-home' popover-placement='top' popover='Home' popover-trigger='mouseenter'>  
+        </span>
+        </button>
+        </span>
+        <!-- *************************************************************** -->
+       </div>
+
+        <!-- Display application list from database her -->
+      <div class="table-responsive">  
+        <table id="mytable" class="table table-bordred table-striped">     
+          <thead>
+            <th><input ng-show="writePage" type="checkbox" id="checkall" /></th>
+            <th ng-repeat="(key,value) in columns">
+              <a href="" ng-click="predicate = 'data.fields[key].name'; reverse=!reverse">{{data.fields[key].header}}</a>
+             </th>   
+           </thead>
+          <tbody> 
+            <tr ng-repeat="(key,value) in filtered = (dataRepo | advancefilter:search) | orderBy:predicate:reverse |orderBy:'-created_at' |
+            pagination: (currentPage-1) * pageSize| limitTo:pageSize">
+              <td><input ng-show="writePage" type="checkbox" class="checkthis" id="{{value._id}}" /></td>
+                <td ng-show="value">
+                  <a ng-class="{disabled:!writePage}"href= "" ng-click="showModalData(data,value._id)">
+                    {{value[data.fields[0].name]}}</a>
+                 </td>
+                <td ng-show="value">{{value[data.fields[1].name] | date:'yyyy-MM-dd' }}</td>
+                <td ng-show="value">{{value[data.fields[2].name]}}</td>
+                <td ng-show="value">{{value[data.fields[3].name]}}</td>
+                <td ng-show="value">{{value[data.fields[4].name]}}</td>
+                <td ng-show="value">{{value[data.fields[5].name]}}</td>
+                <td ng-show="value">{{value[data.fields[6].name]}}</td>
+                <td ng-show="value">
+                    <a ng-class="{disabled:!writePage}" href="" ng-click="userDetails('sm',value[data.fields[7].name])">
+                      {{value[data.fields[7].name]}}</a>
+                 </td>
+                <td ng-show="value">{{value[data.fields[8].name]}}</td>
+                <td ng-show="value">{{value[data.fields[9].name]}}</td>
+                <td ng-show="value">{{value[data.fields[10].name]}}</td>
+                <td ng-show="value">{{value[data.fields[11].name]}}</td>
+                <td ng-show="value">{{value[data.fields[12].name]}}</td>
+                <td ng-show="value">{{value[data.fields[13].name]}}</td>
+                <td ng-show="value">{{value[data.fields[14].name]}}</td>
+                <td ng-show="value">{{value[data.fields[15].name]}}</td>
+              <td>
+                <p>
+                  <button class="btn btn-primary btn-xs" ng-show="writePage" data-title="Edit" ng-click="editModalData(data,value._id)" data-placement="top" rel="tooltip">
+                    <span class="glyphicon glyphicon-pencil" popover-placement="top" popover="Edit record!" popover-trigger="mouseenter"></span>
+                   </button>
+                 </p>
+               </td>
+              <td>
+                <p>
+                  <button class="btn btn-danger btn-xs" ng-show="controlPage" data-title="Delete" ng-click="deleteModalData(data,value._id)" data-placement="top" rel="tooltip">
+                      <span class="glyphicon glyphicon-trash" popover-placement="right" popover="Delete record!" popover-trigger="mouseenter"></span>
+                   </button>
+                 </p>
+               </td>
+              </tr>
+           </tbody>  
+         </table>
+        <div class="clearfix"></div>
+        <div class="col-lg-12">
+          <pagination ng-show="totalList" total-items="totalItems" items-per-page="pageSize" data-boundary-links="true" num-pages="numPages" 
+               ng-model="currentPage" max-size="maxSize" data-previous-text="&laquo;" data-next-text="&raquo;">
+           </pagination> 
+          <pagination ng-show="searchPag" id="searchPag" ng-show="searchPag" total-items="searchItems" items-per-page="pageSize" data-boundary-links="true" num-pages="numPages" 
+            ng-model="currentPage" max-size="maxSize" data-previous-text="&laquo;" data-next-text="&raquo;">
+           </pagination> 
+         </div>
+       </div>            
+     </div>
+   </div>
+ </div>

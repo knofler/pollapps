@@ -1,0 +1,21 @@
+<div class="panel-body selectPnl">
+        <form class="app-form" name="optionForm">
+            <div class="form-group newmodalForm-group">
+              <div class="input-group col-md-11">
+                <span class="input-group-addon">Select Year</span>
+                <select ui-select2="select2Options" id="e8" class="mq_selec2_select" name="optionName" ng-model="formdata.year" ng-change="changeYear()" 
+                type="text" required>
+                  <option ng-repeat="option in years track by $index | filter:formdata.option">{{option}}</option>
+                </select> 
+                <span class="input-group-addon">Select Month</span>
+                <select ui-select2="select2Options" id="e8" class="mq_selec2_select" name="optionName" 
+                ng-model="formdata.month" ng-change="changeMonth()" 
+                type="text" required>
+                  <option ng-repeat="option in calendar | filter:formdata.option" value="{{option.month}}">
+                    {{option.month}}
+                   </option>
+                </select> 
+              </div>  
+            </div>
+          </form>  
+      </div>

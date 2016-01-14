@@ -1,0 +1,6 @@
+     <div class="dndChart" ng-drop="true" ng-drop-success="onChartDropComplete($data,$event)">
+          <span class="dndtitle">Drop for Charts</span>
+          <div ng-repeat="obj in colsData" ng-drag="true" ng-drag-data="obj" ng-drag-success="onDragSuccess($data,$event)" ng-center-anchor="{{centerAnchor}}">
+              {{obj}}
+          </div>
+      </div>

@@ -1,0 +1,276 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class = "container" id="users">
+  <div class="row" id="display_feed">
+      <div class="items col-xs-12 col-sm-6 col-md-6 col-lg-12 gapBottom clearfix">
+      <h1 class="page-header">Users:
+          <span>
+             <button ng-hide="totalUserList" ng-click="showAllUser()" class="btn btn-info" popover="Show All users!" popover-trigger="mouseenter">Show All</button>
+             <button ng-show="searchUserBox" ng-click="searchUser()" class="btn btn-info" popover="Bring Search panel Back!" popover-trigger="mouseenter" >Search Box</button>
+             </span>
+              <span>   
+             <button ng-click="popAdd('roles')" class="btn btn-warning" popover-placement="bottom" popover="Create New Role!" popover-trigger=" mouseenter">New Role
+              </button>
+             </span>
+             <span>            
+                <button class='btn' type= "button" ng-click="popAdd('categorys','small')">
+                  <span class='glyphicon glyphicon glyphicon-wrench' popover-placement='top' popover='Add Category' popover-trigger='mouseenter'>  
+                  </span>
+                </button>
+              </span>
+              <span>            
+                <button class='btn' type= "button" ng-click="popDelete('categorys')">
+                  <span class='glyphicon glyphicon glyphicon-remove' popover-placement='top' popover='Remove Category' popover-trigger='mouseenter'>  
+                  </span>
+                </button>
+              </span>
+              <span>
+                <button class='btn' type= "button" ng-click="popAdd('users','small')">
+                  <span class='glyphicon glyphicon-cog' popover-placement='top' popover='Change Password' popover-trigger='mouseenter'>  
+                  </span>
+                </button>
+              </span>
+              <span>
+                <button class='btn' type= "button" ng-click="add_mquser_modal()">
+                  <span class='glyphicon glyphicon-user' popover-placement='top' popover='Add MQ User' popover-trigger='mouseenter'>  
+                  </span>
+                </button>
+              </span>
+         
+           <!--       <div id="addAppPopHere"></div> -->
+          <h4 class="dataDisplay">Total ( {{userRepo.length}} Users ) </h4>
+           <!-- Page item count option -->
+           <h4 class="countTable">
+                <span class="input-group-addon">Items displayed</span> 
+                  <select class="form-control" name="count" type="text" ng-model="pageSize" id="selectItemPerPage">
+                      <option default selected>8</option>
+                      <option>10</option>
+                      <option>25</option>
+                      <option>50</option>
+                      <option>100</option>
+                      <option>500</option>
+                      <option>All</option>
+                     </select>
+                 </span>
+               </h4>  
+           <h5 class="">  
+             <span id="searchUserflip" ng-show="searchUserflip">
+                <span id="currenUser">{{ getCurrentUser().name }}</span>,
+                your search keyword <span class="searchKeyword"> "{{searchUsers}}" 
+               </span> found 
+             <span id="searchUserCount"> {{filteredUsers.length}} </span> results. 
+             </h5>
+             <h5 class="">  
+             <span id="userPermSuccess">
+                <span>{{ getCurrentUser().name }}</span>,
+                You have successfully assigned permissions to user.
+               </span>
+             </h5>
+          </h1>  
+      <!-- Filter results -->
+      <div class="items col-xs-12 col-sm-6 col-md-6 col-lg-12 gapBottom clearfix">
+        <input ng-hide="totalUserList" ng-model="searchUsers" ng-change="filterUser()" type="search" class="form-control" id="input_search"  placeholder="Search Users..." autofocus>
+          <!-- Heading display  -->
+          <h4 ng-show="totalUserList" type="text" class="page-sub-header countCustom">User management console</h4>
+       </div>
+      <!-- Toolbar displayed here -->  
+      <!-- dynamic append toolbar -->
+      <div id="addtoolBar"></div>
+      <!-- static toolbar -->
+      <div class='items col-xs-12 col-sm-6 col-md-6 col-lg-12 gapBottom clearfix' id='toolbarUser'>
+        <!-- *************************************************************** -->
+        <button class='btn' type= "button" ng-click="popAdd('acls','small')">
+        <span class='glyphicon glyphicon-plus-sign' popover-placement='top' popover='Assign permission' popover-trigger='mouseenter'>  
+        </span>
+        </button>
+        <!-- *************************************************************** -->
+        <button class='btn' type= "button" ng-click="popCSV('applications','small')">
+          <span class='glyphicon glyphicon-download-alt' popover-placement='top' popover='CSV' popover-trigger='mouseenter'>  
+          </span>
+        </button>
+        <!-- *************************************************************** -->
+        <span>
+        <button ng-click='goHome()' class='btn'>
+        <span class='glyphicon glyphicon-home' popover-placement='top' popover='Home' popover-trigger='mouseenter'>  
+        </span>
+        </button>
+        </span>
+        <!-- *************************************************************** -->  
+       </div>
+      <!-- Display application list from database her -->
+      <div class="table-responsive col-lg-12">  
+        <table id="mytable" class="table table-bordred table-striped">             
+            <thead>
+              <th><input type="checkbox" id="checkallUser" /></th>
+              <th><a href="" ng-click="predicate = 'name'; reverse=!reverse">Name</a></th>
+              <th><a href="" ng-click="predicate = 'email'; reverse=!reverse">Email</a></th>
+              <th><a href="" ng-click="predicate = 'role'; reverse=!reverse">Role</a></th>
+              </thead>
+            <tbody> 
+             {{setTotalUsers()}}
+              <tr ng-repeat="user in filteredUsers = (userRepo | filter:searchUsers) | orderBy:predicate:reverse| orderBy:'name' |
+              pagination: (currentUserPage-1) * pageSize| limitTo:pageSize">
+                <td><input type="checkbox" class="checkthisUser" id="{{user._id}}"/></td>
+                <td><a href= "" ng-click="showData('','users',user._id)">{{user.name}}</a></td>
+                <td>{{user.email}}</td>
+                <td>{{user.role}}</td>
+               <!--   <td>{{user._id}}</td> -->
+                <td>
+                  <p>
+                  <button class="btn btn-primary btn-xs" data-title="Edit" ng-click="popEdit('user',user._id)" data-placement="top" rel="tooltip">
+                    <span class="glyphicon glyphicon-pencil" popover-placement="top" popover="Edit user" popover-trigger="mouseenter"></span></button>
+                  </p>
+                </td>
+                <td>
+                <p>
+                <button class="btn btn-danger btn-xs" data-title="Delete" ng-click="popDelete('users',user._id)" data-placement="top" rel="tooltip">
+                <span class="glyphicon glyphicon-trash" popover-placement="right" popover="Delete User" popover-trigger="mouseenter"></span></button>
+                </p>
+                </td>
+              </tr>
+             </tbody>  
+           </table>
+        <div class="clearfix"></div> 
+        <div class="col-lg-8">
+          <pagination ng-show="totalUserList" total-items="totalUsers" items-per-page="pageSize" data-boundary-links="true" num-pages="numPages" ng-model="currentUserPage" max-size="maxSize" data-previous-text="&laquo;" data-next-text="&raquo;"></pagination> 
+          <pagination ng-show="searchUserPag" id="searchUserPag" total-items="searchTotalUsers" items-per-page="pageSize" data-boundary-links="true" num-pages="numPages" ng-model="currentUserPage" max-size="maxSize" data-previous-text="&laquo;" data-next-text="&raquo;">
+           </pagination> 
+         </div>
+         </div>       
+       </div>      
+     </div>
+   </div> 
+ </div>
+
+<div class = "container" id="groups">
+  <div class="row" id="display_feed">
+    <div class="col-lg-9">
+      <h1 class="page-header">Groups:
+          <span>
+             <button ng-hide="totalGroupList" ng-click="showAllGroup()" class="btn btn-info" popover="Show All groups" popover-trigger="mouseenter">Show All</button>
+             <button ng-show="searchGroupBox" ng-click="searchGroup()" class="btn btn-info" popover="Bring Search panel Back!" popover-trigger="mouseenter" >Search Box</button>
+             </span>
+          <span>   
+             <button ng-click="popAdd('groups')" class="btn btn-warning" popover-placement="bottom" popover="Create New Group!" popover-trigger=" mouseenter">New Group
+              </button>
+             </span>
+         
+           <!--       <div id="addAppPopHere"></div> -->
+          <h4 class="dataDisplay">Total ( {{groupRepo.length}} Groups ) </h4>
+           <!-- Page item count option -->
+           <h4 class="countTable">
+                <span class="input-group-addon">Items displayed</span> 
+                  <select class="form-control" name="count" type="text" ng-model="pageSize" id="selectItemPerPage">
+                      <option default selected>8</option>
+                      <option>10</option>
+                      <option>25</option>
+                      <option>50</option>
+                      <option>100</option>
+                      <option>500</option>
+                      <option>All</option>
+                     </select>
+                 </span>
+               </h4>  
+           <h5 class="">  
+             <span id="searchGroupflip" ng-show="searchGroupflip">
+                <span id="currenUser">{{ getCurrentUser().name }}</span>,
+                your search keyword <span class="searchKeyword"> "{{searchGroups}}" 
+               </span> found 
+             <span id="searchGroupCount"> {{filteredGroup.length}} </span> results. 
+             </h5>
+            <h5 class="">  
+             <span id="groupPermSuccess">
+                <span>{{ getCurrentUser().name }}</span>,
+                You have successfully added users to resource groups.
+               </span>
+             </h5>
+          </h1>  
+      <!-- Filter results -->
+      <div class="items col-xs-12 col-sm-6 col-md-6 col-lg-12 gapBottom clearfix">
+        <input ng-hide="totalGroupList" ng-model="searchGroups" ng-change="filterGroup()" type="search" class="form-control" id="input_search_group"  placeholder="Search Groups..." autofocus>
+          <!-- Heading display  -->
+          <h4 ng-show="totalGroupList" type="text" class="page-sub-header countCustom">Group management console</h4>
+       </div>
+        <!-- Toolbar displayed here -->  
+      <!-- dynamic append toolbar -->
+      <div id="addtoolBar"></div>
+      <!-- static toolbar -->
+      <div class='items col-xs-12 col-sm-6 col-md-6 col-lg-12 gapBottom clearfix' id='toolbarGroup'>
+        <!-- *************************************************************** -->
+        <button class='btn' type= "button" ng-click="popAdd('aclsGroup','small')">
+        <span class='glyphicon glyphicon-plus-sign' popover-placement='top' popover='Assign permission' popover-trigger='mouseenter'>  
+        </span>
+        </button>
+        <!-- *************************************************************** -->
+        <button class='btn' type= "button" ng-click="popCSV('applications','small')">
+          <span class='glyphicon glyphicon-download-alt' popover-placement='top' popover='CSV' popover-trigger='mouseenter'>  
+          </span>
+        </button>
+        <!-- *************************************************************** -->
+        <span>
+        <button ng-click='goHome()' class='btn'>
+        <span class='glyphicon glyphicon-home' popover-placement='top' popover='Home' popover-trigger='mouseenter'>  
+        </span>
+        </button>
+        </span>
+        <!-- *************************************************************** -->  
+       </div>
+
+      <!-- Display application list from database her -->
+      <div class="table-responsive col-lg-12">  
+        <table id="mytable" class="table table-bordred table-striped">             
+            <thead>
+               <th><input type="checkbox" id="checkallGroup" /></th>
+              <th><a href="" ng-click="predicate = 'name'; reverse=!reverse">Name</a></th>
+              <th><a href="" ng-click="predicate = 'desc'; reverse=!reverse">Description</a></th>
+              <!-- <th><a href="" ng-click="predicate = 'resource'; reverse=!reverse">Resource</a></th> -->
+              <th><a href="" ng-click="predicate = 'created'; reverse=!reverse">Created</a></th>
+              </thead>
+            <tbody> 
+             {{setTotalGroups()}}
+              <tr ng-repeat="group in filteredGroup = (groupRepo | filter:searchGroups) | orderBy:predicate:reverse| orderBy:'name' |
+              pagination: (currentGroupPage-1) * pageSize| limitTo:pageSize">
+                <td><input type="checkbox" class="checkthisGroup" id="{{group._id}}"/></td>
+                  <td><a href= "" ng-click="showData('','groups',group._id)">{{group.name}}</a></td>
+                <td>{{group.desc}}</td>
+                <!-- <td>{{group.resource}}</td> -->
+                 <td>{{group.created | date: 'longDate'}}</td>
+                <td>
+                  <p>
+                  <button class="btn btn-primary btn-xs" data-title="Edit" ng-click="popEdit('group',group._id)" data-placement="top" rel="tooltip">
+                    <span class="glyphicon glyphicon-pencil" popover-placement="top" popover="Edit user" popover-trigger="mouseenter"></span></button>
+                  </p>
+                </td>
+                <td>
+                <p>
+                <button class="btn btn-danger btn-xs" data-title="Delete" ng-click="popDelete('groups',group._id)" data-placement="top" rel="tooltip">
+                <span class="glyphicon glyphicon-trash" popover-placement="right" popover="Delete User" popover-trigger="mouseenter"></span></button>
+                </p>
+                </td>
+              </tr>
+             </tbody>  
+           </table>
+        <div class="clearfix"></div> 
+        <div class="col-lg-8">
+          <pagination ng-show="totalGroupList" total-items="totalGroups" items-per-page="pageSize" data-boundary-links="true" num-pages="numPages" ng-model="currentGroupPage" max-size="maxSize" data-previous-text="&laquo;" data-next-text="&raquo;"></pagination> 
+          <pagination ng-show="searchGroupPag" id="searchGroupPag" total-items="searchTotalGroups" items-per-page="pageSize" data-boundary-links="true" num-pages="numPages" ng-model="currentGroupPage" max-size="maxSize" data-previous-text="&laquo;" data-next-text="&raquo;">
+           </pagination> 
+         </div>
+         </div>       
+       </div>      
+     </div>
+   </div> 
+ </div> 
+
+<footer class="footer">
+  <div class="container">
+      <p><a href="https://twitter.com/merumman">@merumman</a> |
+         <a href="https://github.com/knofler/asset_register/issues">Issues</a></p>
+  </div>
+ </footer>
+
+ <!-- ################### MODAL DIALOG ########################## -->
+ <modals show='modalShown' width='750px' height='70%'>
+    <addforms data ='dynamic_forms'></addforms>
+ </modals>
+<!-- ################### MODAL DIALOG ########################## -->

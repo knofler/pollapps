@@ -1,0 +1,54 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <span class="glyphicon glyphicon-arrow-right"></span>{{poll_items[poll_items.length-1].poll_head | capitalize}}
+        </h3>
+    </div>
+    <div class="panel-body btnPnl">
+       <span class="spanPnl">Add New Poll</span>
+       <button class="btn btn-warning" ng-click="addPoll()">Add Poll</button>
+     </div>
+    <div class="panel-body selectPnl">
+      <form class="app-form" name="optionForm">
+          <div class="form-group newmodalForm-group">
+            <div class="input-group col-md-11">
+              <span class="input-group-addon">Select Poll Topic</span>
+              <span class="required" ng-show="optionForm.optionName.$error.required">*</span>
+              <select ui-select2="select2Options" id="e8" class="mq_selec2_select" name="optionName" ng-model="formdata.catName" ng-change="changeTopic()" 
+              type="text" required>
+                <option ng-repeat="option in cat_items track by $index | filter:formdata.option">{{option.catName}}</option>
+              </select> 
+            </div>  
+          </div>
+        </form>  
+    </div>
+    <div class="panel-body">
+    <form name="pollForm">
+        <ul ng-repeat="info in poll_items" class="list-group">
+            <li class="list-group-item">
+                <div class="radio">
+    <label><input type="radio" value={{info.item}} name='itemdata'  ng-model ="formdata.items" />{{info.item |capitalize}}</label>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+    <div class="panel-footer">
+        <button type="button" ng-click="vote()" class="btn btn-primary btn-sm">
+            Vote</button>
+
+        <a href="#">View Result</a></div>
+     </div>
+    </form>
+</div>
+
+<!-- ################### MODAL DIALOG ########################## -->
+ <modals top='top' background='background' show='modalShown'>
+      <addforms data="data" modalctrl="close_directive_modal()" image="false" multiple="false"></addforms>
+      <!-- <photoMod></photoMod> -->
+ </modals>
+<!-- ################### MODAL DIALOG ########################## -->
+
+
+<!-- Polymer elemet of geo-tag for browser location -->
+<geo-location></geo-location>

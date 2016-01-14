@@ -1,0 +1,43 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">×</button>
+          <h3 class="modal-title custom_align headerMargin">
+         Group Name: <a ng-click="selected.device = device">
+          <input class="editInput" id="Heading" ng-model="groupEditformData.name"
+           placeholder="{{(userEditData[userEditData.length -1]).name}}" />
+          </a></h3>
+          <h5 class="modal-title custom_align headerMargin" id="Heading">
+          Description : <a ng-click="selected.device = device">
+          <input class="editInput" id="Heading" ng-model="groupEditformData.desc" 
+          placeholder=" {{(userEditData[userEditData.length -1]).desc}}"/>
+          </a></h5>         
+</div>
+<div class="modal-body">
+    <div class="form-group newmodalForm-group"> <div class="input-group col-md-11">
+      <span class="input-group-addon">Group Name :</span>       
+          <input class="form-control" id="name" ng-model="groupEditformData.name" type="text" placeholder="{{(groupEditData[groupEditData.length -1]).name}}" autofocus>
+        </div>
+    </div>
+  <div class="form-group newmodalForm-group"> <div class="input-group col-md-11">
+    <span class="input-group-addon">Description</span>
+        <input class="form-control" id="desc" ng-model="groupEditformData.desc" type="text" placeholder="{{(groupEditData[groupEditData.length -1]).desc}}" >
+      </div>
+  </div>  
+   <div class="form-group newmodalForm-group"> <div class="input-group col-md-11">
+    <span class="input-group-addon">Resource</span>
+         <select ui-select2="select2Options" id="e8" multiple class="mq_selec2_select" name="resource" ng-model="groupEditformData.resource" type="text" 
+         placeholder="{{(groupEditData[groupEditData.length -1]).resource}}">
+                  <option ng-repeat="res in resource track by $index | filter:resourceformData.res">{{res}}</option>
+            </select> 
+      </div>
+  </div> 
+    <div class="form-group newmodalForm-group"> <div class="input-group col-md-11">  
+        <button type="submit" class="btn btn-warning btn-sm" style="width: 30%;" 
+        ng-click="editGroup(groupEditData[groupEditData.length -1]._id)"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
+      </div>
+    </div>
+</div>
+
+     
+<div class="modal-footer">
+
+</div>

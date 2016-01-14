@@ -1,0 +1,20 @@
+.boxDiv{
+	border: 2px #ddd solid;
+	border-radius: 10px;
+	width: auto;
+}
+
+.blob{
+	padding: 10px;
+	margin:10px;
+	position: relative;
+	display: inline-block;
+	border: 1px;
+	width: auto;
+	border-radius: 5px;
+	background-color: skyblue;
+	cursor: pointer;
+	margin-top: 5px;
+	margin-right:10px;
+	clear: left;
+}

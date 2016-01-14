@@ -1,0 +1,48 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">×</button>
+    <h3 class="modal-title custom_align headerMargin">
+    Edit Record: <a ng-click="selected.{{editmodalinfo.model}} = {{editmodalinfo.model}}">
+    <input class="editInput" id="Heading" placeholder="{{EditData[editmodalinfo.fields[0].title]}}" />
+    </a></h3>
+    <h5 class="modal-title custom_align headerMargin" id="Heading">
+    Info : <a ng-click="selected.{{editmodalinfo.model}} = {{editmodalinfo.model}}">
+    <input class="editInput" id="Heading" ng-model="EditformData.description" placeholder=" {{EditData.description}}"/>
+    </a></h5>
+</div>
+
+<div class="modal-body">
+  <form class="{{editmodalinfo.model}}-form" name="{{editmodalinfo.model}}form">
+      <div ng-repeat="(key,value) in editmodalinfo.fields">
+            <div ng-hide="{{value.type}}" class="form-group newmodalForm-group">
+              <div class="input-group col-sm-11">
+                  <span class="input-group-addon">{{value.header}}</span>
+                <input class="form-control" id='{{value.name}}' name='{{value.name}}' type='{{value.type}}' ng-model="EditformData[value.name]"  placeholder='{{EditData[value.name]}}'/>
+              </div>
+            </div>  
+        <div ng-show="{{value.type}}" class="form-group newmodalForm-group">
+          <div class="input-group col-md-11">
+             <span class="input-group-addon">{{value.header}}</span>
+            <select ng-disabled="noOptions" ui-select2="select2Options" id="e8" class="cust_selec2_select" name="{{value.name}}" ng-model="EditformData[value.name]" type="text">
+               <option value="" default selected>{{EditData[value.name]}}</option>
+              <option ng-repeat="option in value.options track by $index">{{option}}</option>
+             </select> 
+          </div>
+        </div> 
+    </div>    
+
+  <div class="form-group newmodalForm-group">
+     <div class="input-group col-md-11">  
+        <button type="button" class="btn btn-warning btn-sm" style="width: 30%;"
+        ng-click="edit(editmodalinfo.id)"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
+      </div>
+   </div>
+   </form> 
+</div>
+
+     
+<div class="modal-footer">
+
+</div>
+
+<!-- Polymer elemet of geo-tag for browser location -->
+<geo-location></geo-location>

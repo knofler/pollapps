@@ -1,0 +1,29 @@
+<!-- search filter -->
+<search data='source' filtermodel ='search' found='filtered.length'></search>
+<!-- This is the iteration of content from database to display here -->
+   <div ng-show="status_show" class="dataDisplay_status">{{data_status}}</div>
+  <section id="pinBoot">  
+<!--      <div infinite-scroll='loaddata()' 
+        infinite-scroll-disabled='infinite'
+        infinite-scroll-listen-for-event="list:filtered"  
+        infinite-scroll-immediate-check = false
+        infinite-scroll-distance='1'>  -->  
+    <article class="white-panel" ng-repeat="(key,value) in filtered =(payload | advancefilter:search) | orderBy:'-created_at' ">
+      <img src={{value.img}} alt="">
+      <h4><a href="#">{{value[source.fields[1].name] | capitalize}}</a>
+        <span class="green_span">{{value[source.fields[3].name] | currency}}</span>
+      </h4>
+      <h6><strong><a href="#">{{value.created_by}}</a></strong>
+      	  <span class="created_at">| {{value.created_at | date: 'longDate'}}</span>
+      </h6>
+       <hr class="display_hr">
+      <p>{{value[source.fields[2].name]}}</p>
+         <!-- <span class="brown_span">{{value[source.fields[4].name] | capitalize}}</span> -->
+      <hr class="display_hr">
+      <display-control data='source' item="value"></display-control>
+      <div ng-show='busy'>Loading data...</div>
+      </div> 
+  </section>
+<!-- Polymer elemet of geo-tag for browser location -->
+<geo-location></geo-location>
+  

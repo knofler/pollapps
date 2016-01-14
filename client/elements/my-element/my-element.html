@@ -1,0 +1,85 @@
+<!-- ***************** link to polymer.html as dependency injection for each element **********************  -->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<!-- ############ Polymer element define here ##################### -->
+<polymer-element name="my-element">
+	<template>
+	    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@******************************************@@@@@@@@@@@@@@@@@@ -->
+	    <!-- ##############################   External CSS for this element styling  ################## -->
+	    <link rel="stylesheet" href="my-element.css">
+	    <!-- ##############################******************************************################## -->
+	    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+
+
+	    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@********************************************@@@@@@@@@@@@@@@@@@@ -->
+    	<!-- ##################### DATABASE Connection elements via firebase element ################## -->
+         <firebase-element
+          id="ref"
+          location="https://metest.firebaseio.com/demo"
+          data="{{datas}}"
+          keys="{{keys}}">
+          </firebase-element>
+	    <!-- ##############################******************************************################## -->
+	    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+
+
+	    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@********************************************@@@@@@@@@@@@@@@@@@@ -->
+	    <!-- ##################### DATABASE Connection elements via local ajax call ################### -->
+	        <core-ajax
+	              auto
+	              loading=true
+	              url="/api/things"
+	              handleAs="json"
+	              response="{{things}}">
+	        </core-ajax>
+	    <!-- ##############################******************************************################## -->
+	    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+
+
+	    <!-- @@@@@@@@@@@@ Template HTML Frame work here @@@@@@@@@@@@@@@ -->
+		   
+	    <span id="cssTest">Hello from <b>my-element</b>. 
+	    This is my custom polymer element Shadow DOM.</span>
+
+	    <!-- #############  View rendering with data from local api ajax call via core ajax element #############-->
+	   	<div>
+	   	  <span id="cssAjax">Shadow dom is accessing data from api below via core-ajax element</span>
+		    <!-- ********* iterate over api payload ***************** -->
+		    <template repeat='{{thing in things}}'>
+		    	<li>{{thing.name}}</li>
+		    </template>
+		    <!-- **************************************************** -->
+	    </div>
+	    <!-- #####################################################################################################-->
+
+
+	    <!-- #############  View rendering with data from Firebase api call via firebase element #############-->
+	   	<div>
+	   	  <span id="cssFirebase">Shadow dom is accessing data from firebase api below via firebase element</span>
+		    <!-- ********* iterate over api payload ***************** -->
+		    <template repeat='{{data in datas}}'>
+		    	<li><span>Goal : {{data.goalName}} , </span><span>Desc : {{data.goalDesc}} , </span></li>
+		    </template>
+		    <!-- **************************************************** -->
+	    </div>
+	    <!-- #####################################################################################################-->
+
+
+
+	    <!-- ************** Accessing polymer element internal function ************************ -->
+	    {{getData()}}
+	    <!-- ************************************************************************************ -->
+
+	    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@ -->
+	 </template>
+    <script>
+	    Polymer('my-element',{
+	     getData:function(){
+	     	console.log("Polymer element working with script registered");
+	     }
+	    });
+     </script> 
+ </polymer-element>
+
+ 
+ 

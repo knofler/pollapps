@@ -1,0 +1,19 @@
+.custLi{
+	padding: 5px;
+	list-style: none;
+	margin: 5px;
+	border: 1px solid #ccc;
+	width: 85%;
+	border-radius: 5px;
+	cursor: pointer;
+	/*margin-left: -10px;*/
+}
+.custLi:hover{
+	background-color: #ffeedd;
+}
+
+.dataDisplay{
+	margin-top: 5px;
+	padding: 5px;
+	width: auto;
+}

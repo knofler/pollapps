@@ -1,0 +1,12 @@
+.ctrl_btn{
+  width: 25px;
+  background-color: #eee;
+}
+
+.ctrl_btn:hover{
+  color: #378446;
+}
+
+.cardFooter{
+  margin-top: -8px;
+}

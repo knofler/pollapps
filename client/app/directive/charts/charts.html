@@ -1,0 +1,34 @@
+<div id="apiChart"></div>
+
+<div ng-show=data.control class="panel-body controlPnl">
+	<form class="app-form" name="optionForm">
+	    <div class="form-group newmodalForm-group">
+	      <div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	        <span class="input-group-addon">Select Chart</span>
+	        <select ui-select2="select2Options" id="e8" class="chart_selec2_select" name="optionName" ng-model="formdata.chartType" ng-change="changeChartType()" 
+	        type="text">
+	          <option ng-repeat="option in chartTypes track by $index | filter:formdata.option" value="{{option.type}}">{{option.display}}</option>
+	        </select> 
+	        <span class="input-group-addon">Select Year</span>
+	        <select ui-select2="select2Options" id="e8" class="chart_selec2_select" name="optionName" ng-model="formdata.year" ng-change="changeYear()" 
+	        type="text">
+	          <option ng-repeat="option in years track by $index | filter:formdata.option">{{option}}</option>
+	        </select> 
+	        <span class="input-group-addon">Select Month</span>
+	        <select ui-select2="select2Options" id="e8" class="chart_selec2_select" name="optionName" 
+	        ng-model="formdata.month" ng-change="changeMonth()" 
+	        type="text">
+	          <option ng-repeat="option in calendar | filter:formdata.option" value="{{option.month}}">
+	            {{option.month}}
+	           </option>
+	        </select> 
+	      </div> 
+	    </div>
+	  </form>  
+ </div>
+
+<!-- use directive function here -->
+<div ng-show=data.graph class="graphCtrl">
+	<button class="btn-info" ng-click="graph()">Graph</button>
+</div>
+

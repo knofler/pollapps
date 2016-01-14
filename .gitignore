@@ -1,0 +1,6 @@
+node_modules
+public
+.tmp
+.sass-cache
+/dist
+server/config/local.env.js

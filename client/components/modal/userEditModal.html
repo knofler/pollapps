@@ -1,0 +1,39 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">×</button>
+          <h3 class="modal-title custom_align headerMargin">
+         User Name: <a ng-click="selected.device = device">
+          <input class="editInput" id="Heading" ng-model="userEditformData.name"
+           placeholder="{{(userEditData[userEditData.length -1]).name}}" />
+          </a></h3>
+          <h5 class="modal-title custom_align headerMargin" id="Heading">
+          Current role : <a ng-click="selected.device = device">
+          <input class="editInput" id="Heading" ng-model="userEditformData.role" 
+          placeholder=" {{(userEditData[userEditData.length -1]).role}}"/>
+          </a></h5>         
+</div>
+<div class="modal-body">
+    <div class="form-group newmodalForm-group"> <div class="input-group col-md-11">
+      <span class="input-group-addon">User Name</span>       
+          <input class="form-control" id="name" ng-model="userEditformData.name" type="text" placeholder="{{(userEditData[userEditData.length -1]).name}}" autofocus>
+        </div>
+    </div>
+  <div class="form-group newmodalForm-group"> <div class="input-group col-md-11">
+    <span class="input-group-addon">Roles</span>
+      <!--   <input class="form-control" id="role" ng-model="userEditformData.role" type="text" placeholder="{{(userEditData[userEditData.length -1]).role}}" > -->
+         <select ui-select2="select2Options" id="e8" class="mq_selec2_select" ng-model="userEditformData.role" type="text" >
+             <option value="" default selected>{{(userEditData[userEditData.length -1]).role}}</option>
+             <option ng-repeat="role in roleRepo track by $index | filter:userEditformData.name">{{role.roleName}}</option>
+          </select>
+      </div>
+  </div>  
+    <div class="form-group newmodalForm-group"> <div class="input-group col-md-11">  
+        <button type="submit" class="btn btn-warning btn-sm" style="width: 30%;" 
+        ng-click="editUser(userEditData[userEditData.length -1]._id)"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
+      </div>
+    </div>
+</div>
+
+     
+<div class="modal-footer">
+
+</div>

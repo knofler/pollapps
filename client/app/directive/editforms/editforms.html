@@ -1,0 +1,25 @@
+<!-- Onclick brings the edit form -->
+<button ng-show="view" ng-click="geteditdata()" class="btn btn-danger btn-sm" style="width: 12%;">Edit</button>
+
+<!-- This is the HTML actually does the form editing. -->
+<div class="formDiv">
+	<div class="row">
+		<div class="col-md-10" id='{{model}}'>
+			<h2 ng-hide="view">Form [ Edit ]</h2>
+			<form class="form" name='{{model}}form'>
+			    <div ng-repeat="(key,value) in fields">
+				    <div class="form-group newmodalForm-group">
+				     	<div class="input-group col-sm-11">
+				       		<span class="input-group-addon">{{key}}</span>
+				     		<input class="form-control" id='{{value._id}}' name='{{value}}' ng-model="formEditData[key]"  placeholder='{{value}}'/>
+				     	</div>
+				  	</div> 	
+				</div>  	
+			    <div ng-hide="view" class="form-group newmodalForm-group" id="userExist">  
+			    	<button type="submit" ng-click="editform()" class="btn btn-info btn-sm" style="width: 25%;">
+			      	<span class="glyphicon glyphicon-ok-sign"></span> Edit </button>
+			    </div>
+			</form>  
+		 </div>
+	</div>
+</div>

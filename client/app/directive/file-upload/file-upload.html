@@ -1,0 +1,49 @@
+<div class="container" nv-file-drop="" uploader="uploader">
+    <div class="col-md-12">
+        <div ng-show="uploader.isHTML5">
+            <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
+            <div nv-file-drop="" uploader="uploader" options="{ url: '/uploads/{{data.model}}' }" id="filedrop">
+                <div nv-file-over="" uploader="uploader" over-class="another-file-over-class dropbox" class="well my-drop-zone" >
+                    <span class="dropbox">Drop CSV File here to view</span>
+                </div>
+             </div>
+         </div>
+        <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+        <input type="file" nv-file-select="" class="fileselect" uploader="uploader" multiple  /><br/>
+
+        <div class="row xAxisctrl">
+            <div class="col-lg-5">
+            <form class="time-form" name="timeform">
+                <div class="input-group">
+                <span class="input-group-addon">    
+                Time Series  
+                </span>
+                  <span class="input-group-addon">
+                    Yes <input type="radio" name="timeseries" value='yes' ng-model="formdata.timeseries">
+                    No <input type="radio" name="timeseries" value='no' ng-model="formdata.timeseries">
+                  </span>
+                <span class="input-group-addon">
+                    xAxis 
+                  </span>
+                  <input ng-disabled="!formdata.timeseries" ng-disabled="formdata.Notimeseries" type="text" class="form-control timeseries" ng-model="formdata.base">
+                <button ng-click="dropFile()" class="btn btn-warning btn-sm" style="width:100%;">
+                    <span class="glyphicon glyphicon-ok-sign"></span> Display</button>
+                  </form>
+                </div>
+              </div>
+        </div> 
+     
+     </div>
+</div>
+<!-- Used chart directive to display chart from droped csv -->
+<charts data='chart'></charts>
+<!-- Used csv directive to create display from droped csv -->
+<csv url="url"></csv>
+
+
+
+
+
+
+
+ 

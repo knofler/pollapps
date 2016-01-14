@@ -1,0 +1,12 @@
+.controlPnl{
+  text-align: center;
+}
+.graphCtrl{
+	margin-left: 30px;
+}
+.chart_selec2_select{
+    min-width:100%;
+    min-height: 35px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}

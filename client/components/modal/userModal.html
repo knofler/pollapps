@@ -1,0 +1,152 @@
+<div class="modal-header">
+    <h3 class="text-muted headerMargin"><span class="text-info">{{(userData[userData.length -1]).JobTitle}} {{(userData[userData.length -1]).FirstName}} {{(userData[userData.length -1]).LastName}}</span></h3>
+    <h5 class="text-warning headerMargin"><span class='glyphicon glyphicon-user glypUser'></span>{{(userData[userData.length -1]).OneID}}</h5>
+    </div>
+<div class="modal-body sm-modal">
+  <ul>     
+
+      <li class="modalLi">
+       <!-- <span>Email:  -->
+      <span class='glyphicon glyphicon-envelope glypEmail'></span>
+          <span class="userDataDisplay text-info"><a href="mailto:{{(userData[userData.length -1]).Email}}"> {{(userData[userData.length -1]).Email}}</a></span>
+       </span> 
+      </li>
+      
+      <hr class="modalHR">
+      <li class="modalLi">Job Start Date : 
+          <span class="userDataDisplay">{{(userData[userData.length -1]).JobStartDate}}</span>
+      </li>
+
+      <li class="modalLi">Job End Date :
+          <span class="userDataDisplay">{{(userData[userData.length -1]).JobEndDate}}</span>
+      </li>
+      
+      <hr class="modalHR">
+      <li class="modalLi">
+       <!-- <span class="modalSpan">Office Location :  -->
+        <span class='glyphicon glyphicon-map-marker glypLocation'></span>
+         <span class="userDataDisplay "><strong> {{(userData[userData.length -1]).OfficeLocation}}</strong></span>
+       </span>
+      </li>
+      <li class="modalLi">
+<!--         <span class="modalSpan">PhoneNumber : -->
+         <span class='glyphicon glyphicon-phone-alt glypPhone'></span>
+        <span class="userDataDisplay text-primary"><strong><a href="tel:{{(userData[userData.length -1]).PhoneNumber}}">{{(userData[userData.length -1]).PhoneNumber}}</a></strong></span>
+        </span>
+      </li>
+      <li class="modalLi">
+<!--         <span class="modalSpan">PhoneNumber : -->
+         <span class='glyphicon glyphicon-phone glypMobile'></span>
+        <span class="userDataDisplay text-primary"><strong><a href="tel:{{(userData[userData.length -1]).PhoneNumber}}">{{(userData[userData.length -1]).PhoneNumber}}</a></strong></span>
+        </span>
+      </li>
+
+     <hr class="purchaseHR">
+      <li class="modalLiLoan">
+        <span class="userDataDisplay "><strong>Purchase Record</strong></span>
+      </li>
+       <hr class="modalHR">
+      <li class="modalLi">
+        <ul class="moveLeft" ng-repeat="record in userPurchase track by $index">
+          <li class="modalLi">
+            <div class="containLoan">
+              <div>
+                <span class='glyphicon glyphicon-credit-card glypPurchase'></span>
+                <strong><a href="" ng-click="showData(record.faculty_ref,'purchases',record._id,'users')">
+                {{record.faculty_ref}}</a></strong>
+              </div>
+            </div>
+            </li>
+        </ul>  
+      </li>
+
+      <hr class="userHR">
+      <li class="modalLi">
+        <span class="userDataDisplay "><strong>Device Allocated</strong></span>
+      </li>
+       <hr class="modalHR">
+      <li class="modalDeviceLi">
+        <ul class="moveLeft" ng-repeat="device in userDevices">
+          <li class="modalLi">
+          <div class="containDevice">
+            <div class="userDevice">
+              <strong>
+              <span class='glyphicon glyphicon-th glypDis'></span>
+                <a href="" ng-click="showData(device.MachineName,'devices',device._id,'leases')">
+                  {{device.MachineName}}
+                </a>
+              </strong>
+            </div>
+            <div class="userDevice">{{device.SystemManufacturer}}</div>
+            </div>
+          </li>
+        </ul>  
+      </li>
+
+      <hr class="loanHR">
+      <li class="modalLiLoan">
+        <span class="userDataDisplay "><strong>Loan Devices</strong></span>
+      </li>
+       <hr class="modalHR">
+      <li class="modalLi">
+        <ul class="moveLeft" ng-repeat="loan in userLoans track by $index">
+          <li class="modalLi">
+            <div class="containDevice">
+            <div class="userDevice">
+            <strong>
+               <span class='glyphicon glyphicon-transfer glypLoan'></span>
+            <a href="" ng-click="showData(loan.LoanItem,'devices',loan._id,'loans')">
+            {{loan.LoanItem}}</a></strong></div>
+            <div class="userLoan">Due on : {{loan.DueDate | date : shortDate}}</div>
+            </div>
+        </ul>  
+      </li>
+
+      <hr class="userHR">
+      <li class="modalLi">
+        <span class="userDataDisplay "><strong>H Drive Usage</strong>
+      </li>
+       <hr class="modalHR">
+      <li class="modalLi">
+        <ul class="moveLeft" ng-repeat="hdrive in userDatas">
+        <li class="modalLi hdriveDis"><span class='glyphicon glyphicon-hdd glypHdd'></span>
+        <a href="" ng-click="showData('','hdrives',hdrive._id,'')">{{hdrive.Size}}</a></li>
+        </ul>  
+      </li>
+
+      <hr class="userHR">
+      <li class="modalLi">
+        <span class="userDataDisplay "><strong>Application linked</strong></span>
+      </li>
+       <hr class="modalHR">
+      <li class="modalLi">
+        <ul class="moveLeft" ng-repeat="app in userApps">
+          <li class="modalLi">
+            <span class='glyphicon glyphicon-tag glypApp'></span>
+            <a href="" ng-click="showData(app.appName,'applications',app._id,'licMgts')">{{app.appName}}</a></li>
+        </ul>  
+      </li>
+
+      <hr class="userHR">
+      <li class="modalLi">
+        <span class="userDataDisplay "><strong>SME for UAT</strong></span>
+      </li>
+      <hr class="modalHR">
+      <li class="modalLi">
+        <ul class="moveLeft" ng-repeat="uat in userUATs">
+          <li class="modalLi">
+            <span class='glyphicon glyphicon-ok-sign glypUat'></span>
+            <div class="uatappName"><a href="" ng-click="showData(uat.uat_appName,'applications',uat._id,'uats')">{{uat.uat_appName}}</a></div>
+            <div class="uatDate"><a href="" ng-click="showData(uat.uat_appName,'uats',uat._id,'applications')">{{uat.uatDate}}</a></div>
+          </li>
+        <ul>  
+      </li>
+   </ul>
+  </div>
+<div class="modal-footer">
+    <button class="btn btn-warning" ng-click="ok()">OK</button>
+    </div>
+
+
+
+  

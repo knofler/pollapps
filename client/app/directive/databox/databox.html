@@ -1,0 +1,6 @@
+<div class="boxDiv">
+	<span ng-repeat="data in colList">
+		<!-- <draggable><span class="blob">{{data}}</span></draggable> -->
+		<span class="blob" ng-drag="true" ng-drag-data="data" data-allow-transform="true"> {{data}} </span>
+	</span>
+</div>

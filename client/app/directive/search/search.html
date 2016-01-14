@@ -1,0 +1,17 @@
+<div class="row searchDiv">
+   <h5 class="">  
+     <span id="searchflip" ng-show="searchflip">
+        <span id="currenUser">{{ getCurrentUser().name }}</span>,
+          your search keyword <span class="searchKeyword"> "{{filtermodel}}" 
+     </span> found 
+     <span id="searchCount"> {{found}} </span> results. 
+   </h5>
+
+  <!-- Filter results -->
+  <div class="items col-xs-12 col-sm-12 col-md-12 col-lg-12 gapBottom clearfix">
+    <input ng-hide="totalList" ng-model='filtermodel' ng-change="filter()" type="search" class="form-control search_form_control" id="input-search"  placeholder="Search {{data.model}}" autofocus>
+      <!-- Heading display  -->
+  </div>
+</div>
+
+

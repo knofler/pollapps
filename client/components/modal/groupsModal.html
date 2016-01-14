@@ -1,0 +1,148 @@
+<div class="modal-header">
+    <h3 class="text-muted headerMargin">Group name : <span class="text-info">{{displayGroupData.name}} </span></h3>
+    <h5 class="text-warning headerMargin">Info : <span class="text-info">{{displayGroupData.desc}} </span></h5>
+    <h5 class="text-warning headerMargin">Created : <span class="text-info">{{displayGroupData.created | date: 'longDate'}} </span></h5>
+</div>
+<div class="modal-body">
+
+  <ul class="shiftLeft">
+    <li class="LicUserTitle">
+        <strong>Group Resources :</strong>
+    </li>
+   </ul>
+<div class="MakeULContained">
+    <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6 ng-scope removeUlHR" ng-repeat="res in groupResource">
+      <li class="showBoxLil"> 
+        <span>
+          <button type="button" class="getUserButton ng-binding" ng-click="userDetails('sm',user.OneID)">{{res}}</button>
+        </span>
+        <span>
+          <button type="button" class="close" ng-click="poplicDelwarn(user.OneID,user._id,user.appName,appLicCount.length)">×</button>
+        </span>
+      </li>
+    </ul>
+</div>
+</div>
+<div class="modal-body groupResList">
+  <h3 class="page-header userPageHeader">Group Resource Access:
+  <span>
+    <button ng-hide="totalResList" ng-click="showAllRes()" class="btn btn-info" popover="Show access control List!" popover-trigger="mouseenter">Show All</button>
+    <button ng-show="searchBox" ng-click="searchResource()" class="btn btn-info" popover="Bring Search panel Back!" popover-trigger="mouseenter">Search Box</button>
+  </span>
+</h3>
+ <!--       <div id="addAppPopHere"></div> -->
+
+      <h4 class="dataDisplay usersDataDisplay">Total ( {{groupMember.length}} Permissions )</h4>
+       <!-- Page item count option -->
+          <h4 class="countTable userCount">
+            <span class="input-group-addon">Items displayed</span> 
+              <select class="form-control" name="count" type="text" ng-model="pageSize" id="selectItemPerPage">
+                <option default selected>4</option>
+                <option>10</option>
+                <option>25</option>
+                <option>50</option>
+                <option>100</option>
+                <option>500</option>
+                <option>All</option>
+              </select>
+            </span>
+          </h4>  
+
+       <h5 class="userH5">  
+         <span id="searchflip" ng-show="searchflip">
+            <span id="currenUser">{{ getCurrentUser().name }}</span>,
+            your search keyword <span class="searchKeyword"> "{{searchAcl}}" 
+         </span> found 
+         <span id="searchCount"> {{filteredAcl.length}} </span> results. 
+        </h5>
+      </span> 
+ 
+      </h1>  
+
+      <!-- Filter results -->
+      <div class="items col-xs-12 col-sm-6 col-md-6 col-lg-12 gapBottom clearfix">
+        <input ng-hide="totalResList" ng-model="searchAcl" type="search" class="form-control" id="input_searchRes"  placeholder="Search permissions..." autofocus>
+          <!-- Heading display  -->
+          <h4 ng-show="totalResList" type="text" class="page-sub-header countCustom">Group Access Control List</h4>
+      </div>
+      <h5 class="notesH5">  
+         <span>
+            <strong>Double Click any rights to modify</strong>
+            </span>
+        </h5>
+
+    <!-- Toolbar displayed here -->  
+    
+    <!-- dynamic append toolbar -->
+    <div id="addtoolBar"></div>
+
+    <!-- static toolbar -->
+    <div class='items col-xs-12 col-sm-6 col-md-6 col-lg-12 gapBottom clearfix' id='toolbar'>
+
+                <!-- *************************************************************** -->
+                
+                <button class='btn' type= "button" ng-click="popCSV('applications','small')">
+                <span class='glyphicon glyphicon-download-alt' popover-placement='top' popover='CSV' popover-trigger='mouseenter'>  
+                </span>
+                </button>
+
+                <!-- *************************************************************** -->
+
+                <span>
+                <button ng-click='goHome()' class='btn'>
+                <span class='glyphicon glyphicon-home' popover-placement='top' popover='Home' popover-trigger='mouseenter'>  
+                </span>
+                </button>
+                </span>
+
+                <!-- *************************************************************** -->
+               
+                </div>
+    <!-- Display application list from database her -->
+      <div class="table-responsive col-sm-12">  
+        <table id="mytable" class="table table-bordred table-striped">             
+            <thead>
+               <th><input type="checkbox" id="checkallAcl" /></th>
+              <th><a href="" ng-click="predicate = 'email'; reverse=!reverse">Email</a></th>
+              <th><a href="" ng-click="predicate = 'resource'; reverse=!reverse">Resource</a></th>
+              <th><a href="" ng-click="predicate = 'rights'; reverse=!reverse">Rights</a></th>
+              <th><a href="" ng-click="predicate = 'created'; reverse=!reverse">Created</a></th>
+              </thead>
+            <tbody> 
+             {{setTotalRes()}}
+              <tr ng-repeat="group in filteredAcl = (groupMember | filter:searchAcl) | orderBy:predicate:reverse| orderBy:'-created' |
+              pagination: (currentAclPage-1) * pageSize| limitTo:pageSize">
+                <td><input type="checkbox" class="checkthisAcl" id="{{group._id}}"/></td>
+                  <td>{{group.email}}</td>
+                <td>{{group.resource}}</td>
+                <td class="dblClick" ng-hide="editable">{{group.rights}}</td>
+                <td class="editElem" ng-show="editable">
+                  <div class="form-group">   
+                   <select ui-select2="select2Options" id="e8" class="mq_selec2_select" ng-model="accessformData.permission" type="text" >
+                    <option value="" default selected>{{group.rights}}</option>
+                      <option ng-repeat="access in acl track by $index | filter:resourceformData.access">{{access}}</option>
+                      </select> 
+                 </div>
+                </td>
+                 <td>{{group.created | date: 'longDate'}}</td>
+            <td>
+              <p>
+              <button class="btn btn-xs" data-title="Edit" ng-click="changePermission(group._id,accessformData.permission)" data-placement="top" rel="tooltip">
+                <span class="glyphicon glyphicon-user" popover-placement="top" popover="Change Permission!" popover-trigger="mouseenter"></span></button>
+              </p>
+            </td>
+          </tr>
+        </tbody>  
+      </table>
+     <div class="clearfix"></div>
+        <div class="col-lg-12">
+          <pagination ng-show="totalResList" total-items="totalRes" items-per-page="pageSize" data-boundary-links="true" num-pages="numPages" 
+          ng-model="currentAclPage" max-size="maxSize" data-previous-text="&laquo;" data-next-text="&raquo;"></pagination> 
+           <pagination ng-show="searchPag" id="searchPag" total-items="filteredAcl.length" items-per-page="pageSize" data-boundary-links="true" num-pages="numPages" ng-model="currentAclPage" max-size="maxSize" data-previous-text="&laquo;" data-next-text="&raquo;">
+           </pagination>
+      </div>
+    </div>
+    </div>
+<div class="modal-footer">
+    <button class="btn btn-warning" ng-click="ok()">OK</button>
+    </div>

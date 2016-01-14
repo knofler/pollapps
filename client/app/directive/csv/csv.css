@@ -1,0 +1,14 @@
+.csvTable{
+	border:1px solid #ddd;
+	/*padding:15px;
+	min-height: 10px;
+	margin:5px 0px;*/
+}
+
+.csvCol{
+	border-right:1px solid green;
+	/*min-width: 20px;*/
+	padding: 0px 3px;
+	/*margin-top: 10px;*/
+	/*padding: 5px;*/
+}

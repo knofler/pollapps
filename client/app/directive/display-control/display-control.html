@@ -1,0 +1,11 @@
+<div class = "cardFooter" >
+  <button class="ctrl_btn btn btn-xs"><span class = "glyphicon glyphicon-map-marker"    ng-click = "location(item._id)"></span></button>
+  <button class="ctrl_btn btn btn-xs"><span class = "glyphicon glyphicon-phone-alt"     ng-click = "callUser(item._id)"></span></button>
+  <button class="ctrl_btn btn btn-xs"><span class = "glyphicon glyphicon-star-empty"    ng-click = "makeFav(item._id)" ng-class="{starFav:item.isFav}"></span></button>
+  <button class="ctrl_btn btn btn-xs"><span class = "glyphicon glyphicon-thumbs-up"     ng-click = "like(item._id)" ></span></button>
+  <button class="ctrl_btn btn btn-xs"><span class = "glyphicon glyphicon-thumbs-down"   ng-click = "disLike(item._id)" ></span></button>
+  <button class="ctrl_btn btn btn-xs"><span class = "glyphicon glyphicon-shopping-cart" ng-click = "addtoCart(item._id)"></span></button>
+  <button class="ctrl_btn btn btn-xs"><span class = "glyphicon glyphicon-qrcode"        ng-click = "scan(item._id)"></span></button> 
+  <button class="ctrl_btn btn btn-xs"><span class = "glyphicon glyphicon-envelope"      ng-click = "mailModal()" ng-class="{inActive:'{{item.isActive}}'}"></span>
+  </button>
+</div>  

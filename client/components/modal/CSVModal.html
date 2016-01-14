@@ -1,0 +1,36 @@
+<div class="modal-header">
+            <button type="button" class="close" ng-click="cancel()">×</button>
+          <h4 class="modal-title custom_align headerMargin" id="Heading">Generate Custom Report : 
+          </h4>
+          <h5 class="modal-title custom_align headerMargin" id="Heading">
+          Selected Fields : <a ng-click="selected.device = device">
+          <input class="editInput" id="Heading" ng-model="formData.columns" type="text" />
+          </a></h5>
+</div>
+<div class="modal-body">
+<form class="device-form" name="csvform">
+
+  <div class="form-group newmodalForm-group">
+     <div class="input-group col-md-11">
+    <span class="input-group-addon">Data Fields</span>
+     <span class="required" ng-show="csvform.columns.$error.required">*</span>
+      <select ui-select2="select2Options" id="e8" name ="columns" class="mq_selec2_select" multiple ng-model="formData.columns" type="text" placeholder="e.g. barcode | serial number">
+        <option ng-repeat="column in columns track by $index | filter:formData.column">{{column}}</option>
+      </select>
+      </div>
+  </div> 
+
+  <div class="form-group newmodalForm-group">
+     <div class="input-group col-md-11">  
+        <button type="button" class="btn btn-info btn-sm" style="width: 25%;"
+        ng-click="getCustomReport()" ng-disabled="csvform.$error.required"><span class="glyphicon glyphicon-ok-sign"></span> CSV</button>
+      </div>
+  </div>
+
+   </form> 
+</div>
+
+     
+<div class="modal-footer">
+
+</div>
